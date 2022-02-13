@@ -59,8 +59,8 @@ export default class AppraisalsWebPart extends BaseClientSideWebPart<IAppraisals
                             groupName: strings.BasicGroupName,
                             groupFields: [
                                 AccessControl('permissions', {
-                                    key: 'test',
-                                    permissions: ['lock', 'finish'],
+                                    key: 'permissions',
+                                    permissions: ['lock', 'create', 'finish'],
                                     context: this.context,
                                     selectedUserGroups:
                                         this.properties.permissions,
