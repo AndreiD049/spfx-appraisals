@@ -11,6 +11,7 @@ import styles from './AppraisalItems.module.scss';
 export interface ITrainingItemsProps {
     user: IUser;
     period: IPeriod;
+    disabled: boolean;
 }
 
 const TrainingItems: FC<ITrainingItemsProps> = (props) => {
@@ -64,6 +65,7 @@ const TrainingItems: FC<ITrainingItemsProps> = (props) => {
                 minItems={3}
                 status="Achieved"
                 itemType="Training"
+                disabled={props.disabled}
                 period={props.period}
                 userId={props.user?.Id}
                 setItems={setItems}
@@ -75,6 +77,7 @@ const TrainingItems: FC<ITrainingItemsProps> = (props) => {
                 minItems={3}
                 status="Planned"
                 itemType="Training"
+                disabled={props.disabled}
                 period={props.period}
                 userId={props.user?.Id}
                 setItems={setItems}

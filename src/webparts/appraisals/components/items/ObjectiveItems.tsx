@@ -11,6 +11,7 @@ import styles from './AppraisalItems.module.scss';
 export interface IObjectiveItemsProps {
     user: IUser;
     period: IPeriod;
+    disabled: boolean;
 }
 
 const ObjectiveItems: FC<IObjectiveItemsProps> = (props) => {
@@ -61,6 +62,7 @@ const ObjectiveItems: FC<IObjectiveItemsProps> = (props) => {
                     minItems={5}
                     status="Achieved"
                     itemType="Objective"
+                    disabled={props.disabled}
                     period={props.period}
                     userId={props.user?.Id}
                     setItems={setItems}
@@ -72,6 +74,7 @@ const ObjectiveItems: FC<IObjectiveItemsProps> = (props) => {
                     minItems={5}
                     status="Planned"
                     itemType="Objective"
+                    disabled={props.disabled}
                     period={props.period}
                     userId={props.user?.Id}
                     setItems={setItems}

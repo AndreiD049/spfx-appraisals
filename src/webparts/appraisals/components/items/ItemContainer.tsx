@@ -19,6 +19,7 @@ export interface IItemContainerProps
     items: IItem[];
     status: ItemStatus;
     itemType: ItemType;
+    disabled: boolean;
     title?: string;
     period: IPeriod;
     userId: string;
@@ -147,7 +148,7 @@ const ItemContainer: FC<IItemContainerProps> = (props) => {
                 <ItemField
                     key={item.Id}
                     item={item}
-                    disabled={props.period.Status === 'Finished'}
+                    disabled={props.disabled}
                     handleBlur={handleValueUpdate(item)}
                     actions={actions(item)}
                 />
@@ -156,7 +157,7 @@ const ItemContainer: FC<IItemContainerProps> = (props) => {
                 <ItemField
                     key={`empty--${props.items.length + idx}`}
                     item={item}
-                    disabled={props.period.Status === 'Finished'}
+                    disabled={props.disabled}
                     handleBlur={handleValueUpdate(item)}
                     actions={actions(item).map((a) => ({
                         ...a,
