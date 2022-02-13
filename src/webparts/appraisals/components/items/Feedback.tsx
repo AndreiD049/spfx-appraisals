@@ -11,15 +11,12 @@ import { emptyItem, handleItemUpdate, setItemAction } from './utils';
 export interface IFeedbackProps {
     user: IUser;
     period: IPeriod;
+    disabled: boolean;
 }
 
 const Feedback: React.FC<IFeedbackProps> = (props) => {
     const [originalItem, setOriginalItem] = React.useState<IItem>(null);
     const [item, setItem] = React.useState<IItem>(null);
-    const disabled = React.useMemo(
-        () => props.period?.Status === 'Finished',
-        [props.period]
-    );
 
     React.useEffect(() => {
         async function run() {
@@ -79,8 +76,8 @@ const Feedback: React.FC<IFeedbackProps> = (props) => {
                     multiline
                     resizable={false}
                     autoAdjustHeight
-                    disabled={disabled}
-                    onBlur={!disabled && handleBlur}
+                    readOnly={props.disabled}
+                    onBlur={!props.disabled && handleBlur}
                     onChange={(_e: any, newVal: string) =>
                         setItem((prev) => ({
                             ...prev,

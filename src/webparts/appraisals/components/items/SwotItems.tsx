@@ -16,6 +16,7 @@ import styles from './AppraisalItems.module.scss';
 export interface ISwotItemsProps {
     user: IUser;
     period: IPeriod;
+    disabled: boolean;
 }
 
 const theme = getTheme();
@@ -81,6 +82,7 @@ const SwotItems: FC<ISwotItemsProps> = (props) => {
                         status="NA"
                         title="Strength"
                         itemType="Strength"
+                        disabled={props.disabled}
                         period={props.period}
                         userId={props.user?.Id}
                         setItems={setItems}
@@ -97,6 +99,7 @@ const SwotItems: FC<ISwotItemsProps> = (props) => {
                         status="NA"
                         title="Weakness"
                         itemType="Weakness"
+                        disabled={props.disabled}
                         period={props.period}
                         userId={props.user?.Id}
                         setItems={setItems}
@@ -120,6 +123,7 @@ const SwotItems: FC<ISwotItemsProps> = (props) => {
                         status="NA"
                         title="Opportunity"
                         itemType="Opportunity"
+                        disabled={props.disabled}
                         period={props.period}
                         userId={props.user?.Id}
                         setItems={setItems}
@@ -136,6 +140,7 @@ const SwotItems: FC<ISwotItemsProps> = (props) => {
                         status="NA"
                         title="Threat"
                         itemType="Threat"
+                        disabled={props.disabled}
                         period={props.period}
                         userId={props.user?.Id}
                         setItems={setItems}

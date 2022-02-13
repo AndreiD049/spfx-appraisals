@@ -54,7 +54,7 @@ const ItemField: FC<IItemFieldProps> = (props) => {
                     resizable={false}
                     autoAdjustHeight
                     borderless
-                    disabled={props.disabled}
+                    readOnly={props.disabled}
                     value={value}
                     onChange={(_e: any, newVal: string) => setValue(newVal)}
                     onBlur={!props.disabled && handleBlur}
