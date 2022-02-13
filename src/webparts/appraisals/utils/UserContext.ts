@@ -10,6 +10,9 @@ export interface IUserContext {
     userGroups: IUserGroup[];
     teamUsers: any[];
     permissions: IUserGroupPermissions;
+    canUserLock: boolean;
+    canUserFinish: boolean;
+    canUserCreate: boolean;
 }
 
 const UserContext = React.createContext<IUserContext>({
@@ -18,6 +21,9 @@ const UserContext = React.createContext<IUserContext>({
     userGroups: [],
     teamUsers: [],
     permissions: {},
+    canUserLock: false,
+    canUserFinish: false,
+    canUserCreate: false,
 });
 
 export default UserContext;

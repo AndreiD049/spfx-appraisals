@@ -21,6 +21,7 @@ import { useHistory } from 'react-router-dom';
 import useForceUpdate from '../../utils/forceUpdate';
 import UserContext, { IUserContext } from '../../utils/UserContext';
 import { canCurrentUser } from 'property-pane-access-control';
+import { ICommandBarItemProps } from '@microsoft/office-ui-fabric-react-bundle';
 
 const theme = getTheme();
 const pillStyles: (item: IPeriod) => React.CSSProperties = (item) => ({
@@ -56,9 +57,6 @@ const AppraisalPeriods: FC = () => {
             );
         }
     }, [searchValue, periods]);
-
-    /* Can current user finish periods */
-    const [canFinish, setCanFinish] = React.useState(false);
 
     /* Selection */
     const [selectedItem, setSelectedItem] = React.useState<IPeriod>(null);
@@ -125,10 +123,6 @@ const AppraisalPeriods: FC = () => {
             if (context) {
                 const result = await getPeriods();
                 setPeriods(result);
-                /** Can current user finish periods? */
-                setCanFinish(
-                    await canCurrentUser('finish', context.permissions)
-                );
             }
         }
 
@@ -142,10 +136,48 @@ const AppraisalPeriods: FC = () => {
     };
 
     const handleFinishPeriod = (id: string) => async () => {
-        console.log(id);
         await finishPeriod(id);
         forceUpdate();
     };
+
+    const commandBarItems = React.useMemo(() => {
+        const items: any[] = [
+            {
+                key: 'open',
+                text: 'Open',
+                onClick: () => handleOpenItem(selectedItem),
+                disabled: !Boolean(selectedItem),
+                iconProps: {
+                    iconName: 'OEM',
+                },
+            },
+        ];
+        if (context.canUserCreate) {
+            items.push({
+                key: 'new',
+                text: 'New',
+                onClick: () => setNewPanel(true),
+                iconProps: {
+                    iconName: 'Add',
+                },
+            });
+        }
+        if (context.canUserFinish && selectedItem?.Status !== 'Finished') {
+            items.push({
+                key: 'finish',
+                text: 'Finish',
+                onClick:
+                    context.canUserFinish &&
+                    Boolean(selectedItem) &&
+                    handleFinishPeriod(selectedItem.ID),
+                disabled: context.canUserFinish ? !Boolean(selectedItem) : true,
+                iconProps: {
+                    iconName: 'LockSolid',
+                },
+            });
+        }
+        return items;
+    }, [context, selectedItem]);
 
     return (
         <>
@@ -158,39 +190,7 @@ const AppraisalPeriods: FC = () => {
                 <main>
                     {/* Add new periods, finish periods, open */}
                     <CommandBar
-                        items={[
-                            {
-                                key: 'new',
-                                text: 'New',
-                                onClick: () => setNewPanel(true),
-                                iconProps: {
-                                    iconName: 'Add',
-                                },
-                            },
-                            {
-                                key: 'open',
-                                text: 'Open',
-                                onClick: () => handleOpenItem(selectedItem),
-                                disabled: !Boolean(selectedItem),
-                                iconProps: {
-                                    iconName: 'OEM',
-                                },
-                            },
-                            {
-                                key: 'finish',
-                                text: 'Finish',
-                                onClick:
-                                    canFinish &&
-                                    Boolean(selectedItem) &&
-                                    handleFinishPeriod(selectedItem.ID),
-                                disabled: canFinish
-                                    ? !Boolean(selectedItem)
-                                    : true,
-                                iconProps: {
-                                    iconName: 'LockSolid',
-                                },
-                            },
-                        ]}
+                        items={commandBarItems}
                         farItems={[
                             {
                                 key: 'search',

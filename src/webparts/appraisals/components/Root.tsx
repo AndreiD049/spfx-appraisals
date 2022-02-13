@@ -8,7 +8,7 @@ import { getSiteInfo } from '../dal/Site';
 import { getCurrentUser } from '../dal/Users';
 import { getUserGroups } from '../dal/Groups';
 import { getTeamMembers } from '../dal/TeamMembers';
-import { IUserGroupPermissions } from 'property-pane-access-control';
+import { canCurrentUser, IUserGroupPermissions } from 'property-pane-access-control';
 
 export interface IRootProps {
     permissions: IUserGroupPermissions;
@@ -21,6 +21,9 @@ const Root: React.FC<IRootProps> = (props) => {
         userGroups: [],
         userInfo: null,
         permissions: {},
+        canUserCreate: false,
+        canUserFinish: false,
+        canUserLock: false,
     });
 
     React.useEffect(() => {
@@ -32,6 +35,9 @@ const Root: React.FC<IRootProps> = (props) => {
                 userGroups: await getUserGroups(),
                 teamUsers: await getTeamMembers(),
                 permissions: props.permissions,
+                canUserCreate: await canCurrentUser('create', props.permissions),
+                canUserFinish: await canCurrentUser('finish', props.permissions),
+                canUserLock: await canCurrentUser('lock', props.permissions),
             };
             setCtx(result);
         }

@@ -72,12 +72,14 @@ const PeriodDetails = (props: IPeriodDetailsProps) => {
     const [showLockButton, setShowLockButton] = React.useState(false);
     React.useEffect(() => {
         async function run() {
-            const hasAccess = await canCurrentUser('lock', context.permissions);
-            /** If user doesn't have access, do not show */
-            if (!hasAccess) return setShowLockButton(false);
-            /** If user is viewing his own appraisal, do not show */
-            if (isCurrentLoggedUserSelected) return setShowLockButton(false);
-            setShowLockButton(true);
+            if (context.userInfo && currentUser) {
+                const hasAccess = context.canUserLock;
+                /** If user is viewing his own appraisal, do not show */
+                if (isCurrentLoggedUserSelected) return setShowLockButton(false);
+                /** If user doesn't have access, do not show */
+                if (!hasAccess) return setShowLockButton(false);
+                setShowLockButton(true);
+            }
         }
         run();
     }, [isCurrentLoggedUserSelected, context]);
