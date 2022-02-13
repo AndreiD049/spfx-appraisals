@@ -3,7 +3,7 @@ interface IPeriodLookup {
     Title: string;
 }
 
-export type ItemType = "Goal" | "Training" | "Strength" | "Weakness" | "Opportunity" | "Threat" | "Feedback";
+export type ItemType = "Objective" | "Training" | "Strength" | "Weakness" | "Opportunity" | "Threat" | "Feedback";
 
 export type ItemStatus = "Planned" | "Achieved" | "NA";
 

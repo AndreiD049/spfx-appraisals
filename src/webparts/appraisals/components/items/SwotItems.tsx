@@ -8,14 +8,14 @@ import { IUser } from '../../dal/IUser';
 import ItemContainer from './ItemContainer';
 import styles from './ItemContainer.module.scss';
 
-export interface IGoalItemsProps {
+export interface ISwotItemsProps {
     user: IUser;
     period: IPeriod;
 }
 
 const theme = getTheme();
 
-const SwotItems: FC<IGoalItemsProps> = (props) => {
+const SwotItems: FC<ISwotItemsProps> = (props) => {
     const [items, setItems] = React.useState<IItem[]>([]);
 
     const strengthItems = React.useMemo(() => {

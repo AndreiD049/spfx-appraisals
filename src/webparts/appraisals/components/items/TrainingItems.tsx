@@ -8,12 +8,12 @@ import { IUser } from '../../dal/IUser';
 import ItemContainer from './ItemContainer';
 import styles from './ItemContainer.module.scss';
 
-export interface IGoalItemsProps {
+export interface ITrainingItemsProps {
     user: IUser;
     period: IPeriod;
 }
 
-const TrainingItems: FC<IGoalItemsProps> = (props) => {
+const TrainingItems: FC<ITrainingItemsProps> = (props) => {
     const [items, setItems] = React.useState<IItem[]>([]);
 
     const achieved = React.useMemo(() => {

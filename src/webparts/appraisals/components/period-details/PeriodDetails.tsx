@@ -11,7 +11,7 @@ import { getPeriod } from '../../dal/Periods';
 import { getCurrentUser } from '../../dal/Users';
 import useForceUpdate from '../../utils/forceUpdate';
 import UserContext from '../../utils/UserContext';
-import GoalItems from '../items/GoalItems';
+import ObjectiveItems from '../items/ObjectiveItems';
 import PeoplePicker from '../items/PeoplePicker';
 import SwotItems from '../items/SwotItems';
 import TrainingItems from '../items/TrainingItems';
@@ -26,7 +26,7 @@ const theme = getTheme();
 /**
  * Page showing the details for the choosen apprisal period
  * There are 3 sections on the appraisal:
- * - Goals
+ * - Objectives
  * - Trainings
  * - SWOT Matrix
  */
@@ -84,9 +84,9 @@ const PeriodDetails = (props: IPeriodDetailsProps) => {
             </StackItem>
             <Stack verticalAlign="center" horizontalAlign="center" style={{ marginTop: theme.spacing.l1 }}>
                 <Separator className={styles.itemDetailsSeparator}>
-                    <Text variant="mediumPlus">Goals</Text>
+                    <Text variant="mediumPlus">Objectives</Text>
                 </Separator>
-                <GoalItems user={currentUser} period={period} />
+                <ObjectiveItems user={currentUser} period={period} />
             </Stack>
             {/* My goals */}
             <Stack verticalAlign="center" horizontalAlign="center" style={{ marginTop: theme.spacing.l1 }}>
