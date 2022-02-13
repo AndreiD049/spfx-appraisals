@@ -6,7 +6,7 @@ import IPeriod from '../../dal/IPeriod';
 import { getItems } from '../../dal/Items';
 import { IUser } from '../../dal/IUser';
 import ItemContainer from './ItemContainer';
-import styles from './ItemContainer.module.scss';
+import styles from './AppraisalItems.module.scss';
 
 export interface IObjectiveItemsProps {
     user: IUser;
